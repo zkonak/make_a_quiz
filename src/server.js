@@ -3,6 +3,8 @@ const helmet = require("helmet");
 const logger = require("morgan");
 const cors = require("cors");
 const jwt = require('jsonwebtoken');
+var cookies = require("cookie-parser");
+
 
 const routes = require("./routes");
 
@@ -14,7 +16,7 @@ server.use(helmet());
 server.use(logger("dev"));
 server.use(express.json());
 server.use(express.urlencoded({extended: true}));
-
+server.use(cookies());
 server.use("/api", cors());
 
 // server.use('/api/admin/auth', (req, res) => {

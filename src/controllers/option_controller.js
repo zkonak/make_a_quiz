@@ -43,10 +43,41 @@ const optionsController = {
   
     add: async (data) => {
     
-        const newOption = await newOption.create(data);
+        const newOption = await Option.create(data);
 
         return newOption;
     },
+    update: async (id, data) => {
+    const optionFound = await Option.findOne({
+      where: { id },
+    });
+    if (!optionFound) {
+      throw new NotFoundError("Ressource introuvable", "Cette option n'existe pas");
+    }
+   
+    await optionFound.update(data);
+
+    const option = await Option.findOne({
+      where: {
+        id
+      },
+      attributes: {exclude: ["dateCreated"]},
+    }); 
+
+    return option;
+  },
+   deleteOption: async (id, data) => {
+    const optionFound = await Option.findOne({
+      where: { id },
+    });
+    if (!optionFound) {
+      throw new NotFoundError("Ressource introuvable", "Cette option n'existe pas");
+    }
+   
+    await optionFound.delete();
+
+    return optionFound;
+  },
 };
 
 module.exports = optionsController;

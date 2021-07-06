@@ -56,7 +56,8 @@ const userController = {
 
 
         const MAXAGE = Math.floor(Date.now() / 1000) + (60 * 60); // 1 hour of expiration
-        token= await jwt.sign(user.toJSON(), "SECRET");
+        user.exp=MAXAGE;
+        token= await jwt.sign(JSON.stringify(user), "SECRET");
         user.token=token;
           return user;         
     

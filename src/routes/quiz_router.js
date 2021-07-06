@@ -6,12 +6,12 @@ const {
   getAll,
   getOne,
   add,
-  addPromo
+  update
 } = require("../controllers/quiz_controller");
 
 const router = express.Router();
 
-router.get("/",isAuth, async (request, response) => {
+router.get("/", async (request, response) => {
   const quizzes = await getAll();
   response.status(OK).json(quizzes);
 });
@@ -22,11 +22,21 @@ router.get("/:id", async (request, response) => {
 });
 
 
-router.post("/", async (request, response) => {
+router.post("/",isAuth, async (request, response) => {
   const quizToAdd = request.body;
   
   const newQuiz = await add(quizToAdd);
   response.status(CREATED).json(newQuiz);
 });
+
+
+router.put("/:id",isAuth, async (request, response) => {
+  const user = request.body;
+
+  const userUpdated = await update(request.params.id, user);
+  response.status(OK).json(userUpdated);
+});
+
+
 
 module.exports = router;

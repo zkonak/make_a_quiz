@@ -1,5 +1,5 @@
 const { Quiz } = require("../models");
-const { BadRequestError, NotFoundError } = require("../helpers/errors");
+const { BadRequestError, NotFoundError,UnauthorizedError } = require("../helpers/errors");
 
 const quizController = {
   getAll: async () => {
@@ -43,6 +43,30 @@ const quizController = {
     //newQuiz.addOption(data.option);
 
     return newQuiz;
+  },
+
+  update: async (id, data,user_id) => {
+    const quizFound = await Quiz.findOne({
+      where: { id },
+    });
+    if (!quizFound) {
+      throw new NotFoundError("Ressource introuvable", "Ce Quiz n'existe pas");
+    }
+    if (quizFound.userId!==user_id) {
+      throw new UnauthorizedError("Ressource inaccesible!");
+    }
+
+
+    await quizFound.update(data);
+
+    const quiz = await Quiz.findOne({
+      where: {
+        id
+      },
+      attributes: {exclude: ["dateCreated"]},
+    }); 
+
+    return quiz;
   },
  
 };
