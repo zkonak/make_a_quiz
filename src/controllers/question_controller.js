@@ -26,12 +26,12 @@ const questionController = {
     return question;
   },
   getByQuizId: async (id) => {
-    const question = await Question.findOne({
+    const question = await Question.findAll({
       where: {
         quizId:id
       },
       attributes: { exclude: ["createdAt", "updatedAt"] },
-      //include: ['quizzes']
+      
     });
     if (!question) {
       throw new NotFoundError("Ressource introuvable", "Cette question n'existe pas");

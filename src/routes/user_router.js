@@ -5,7 +5,7 @@ const { OK, CREATED } = require("../helpers/status_codes");
 const {
   getAll,
   getOne,
-  getByUserName,
+  login,
   add,
   deleteOne,
   update,
@@ -26,13 +26,13 @@ router.post("/", async (request, response) => {
   response.status(CREATED).json(newUser);
 });
 
-router.get("/:id", isAuth,async (request, response) => {
+router.get("/:id",async (request, response) => {
   const user = await getOne(request.params.id);
   response.status(OK).json(user);
 });
 
 router.post("/login", async (request, response) => {
-  const user = await getByUserName(request.body.username,request.body.password);
+  const user = await login(request.body.email,request.body.password);
    const MAXAGE = Math.floor(Date.now() / 1000) + (60 * 60); // 1 hour of expiration
   response.cookie('authcookie', user.token, { maxAge: MAXAGE });
   response.status(OK).json({user:user,token:user.token});

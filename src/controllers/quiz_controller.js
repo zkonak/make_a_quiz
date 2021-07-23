@@ -4,8 +4,8 @@ const { BadRequestError, NotFoundError,UnauthorizedError } = require("../helpers
 const quizController = {
   getAll: async () => {
     const quizzes = await Quiz.findAll({
-      order: [["title", "ASC"]],
-      attributes: { exclude: ["createdAt", "updatedAt"] },
+      order: [["createdAt", "DESC"]],
+      attributes: { exclude: [ "updatedAt"] },
       raw: true,
     });
     return quizzes;
@@ -16,7 +16,8 @@ const quizController = {
         id
       },
       attributes: { exclude: ["createdAt", "updatedAt"] },
-      include: 'users'
+     
+      
     });
     if (!quiz) {
       throw new NotFoundError("Ressource introuvable", "Ce quiz n'existe pas");

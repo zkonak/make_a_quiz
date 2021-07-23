@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const isAuth = (request, response, next) => {
-    const token = request.cookies.authcookie;
+    //const token = request.cookies.authcookie;
+    const token = request.headers.authorization.split('Bearer ')[1];
     
     jwt.verify(token,"SECRET", (error, user) => {
         if (error) {

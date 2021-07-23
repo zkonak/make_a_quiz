@@ -39,10 +39,10 @@ const userController = {
     return user;
   },
 
-   getByUserName: async (username,password) => {
+   login: async (email,password) => {
     const user = await User.findOne({
       where: {
-        username
+        email
       },
       attributes: {exclude: ["dateCreated"]},
      
