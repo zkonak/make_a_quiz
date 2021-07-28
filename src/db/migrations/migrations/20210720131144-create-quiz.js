@@ -18,31 +18,20 @@ module.exports = {
           key: "id"
         },
       },
-      datecreation: {
-        type: Sequelize.DATE,
-      },
-      active: {
-        type: Sequelize.STRING,
-      },
+      
       fontcolor: {
         type: Sequelize.STRING,
       },
-      backgroundimage: {
-        type: Sequelize.BLOB,
-      },
-      icon: {
-        type: Sequelize.BLOB,
-      },
-      public: {
+      backgroundcolor: {
         type: Sequelize.STRING,
       },
+     
+      
       scoremin: {
         type: Sequelize.INTEGER,
       },
 
-      timelimit: {
-        type: Sequelize.INTEGER,
-      },
+      
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

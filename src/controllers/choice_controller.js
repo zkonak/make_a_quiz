@@ -1,10 +1,10 @@
-const {Option } = require("../models");
+const {Choice } = require("../models");
 const { BadRequestError, NotFoundError } = require("../helpers/errors");
 
 
-const optionsController = {
+const choiceController = {
     getAll: async () => {
-        const options = await Option.findAll({
+        const choices = await Choice.findAll({
             order: [["id", "ASC"]],
             attributes: { exclude: ["createdAt", "updatedAt"] },
             raw: true,
@@ -12,43 +12,57 @@ const optionsController = {
         return options;
     },
     getOne: async (id) => {
-       const option = await Option.findAll({
+       const choice = await Choice.findAll({
             where: {
                 id
             },
             attributes: { exclude: ["createdAt", "updatedAt"] },
           
         });
-        if (!option) {
+        if (!choice) {
             throw new NotFoundError("Ressource introuvable", "Cette option n'existe pas");
         }
 
-        return option;
+        return choice;
+    },
+    getCorrectOne: async (questionid) => {
+       const choice = await Choice.findAll({
+            where: {
+                id,questionId
+            },
+            attributes: { exclude: ["createdAt", "updatedAt"] },
+          
+        });
+        if (!choice) {
+            throw new NotFoundError("Ressource introuvable", "Cette option n'existe pas");
+        }
+
+        return choice;
     },
   
     getByQuestion: async (questionId) => {
-        const options = await Option.findAll({
+        const choices = await Choice.findAll({
             where: {
                 questionId
             },
             attributes: { exclude: ["createdAt", "updatedAt"] },
           
         });
-        if (!options) {
+        if (!choices) {
             throw new NotFoundError("Ressource introuvable", "Cette options n'existe pas");
         }
 
-        return options;
+        return choices;
     },
   
     add: async (data) => {
     
-        const newOption = await Option.create(data);
+        const newChoice = await Choice.create(data);
 
-        return newOption;
+        return newChoice;
     },
     update: async (id, data) => {
-    const optionFound = await Option.findOne({
+    const optionFound = await Choice.findOne({
       where: { id },
     });
     if (!optionFound) {
@@ -57,7 +71,7 @@ const optionsController = {
    
     await optionFound.update(data);
 
-    const option = await Option.findOne({
+    const option = await Choice.findOne({
       where: {
         id
       },
@@ -67,7 +81,7 @@ const optionsController = {
     return option;
   },
    deleteOption: async (id, data) => {
-    const optionFound = await Option.findOne({
+    const optionFound = await Choice.findOne({
       where: { id },
     });
     if (!optionFound) {
@@ -80,4 +94,4 @@ const optionsController = {
   },
 };
 
-module.exports = optionsController;
+module.exports = choiceController;

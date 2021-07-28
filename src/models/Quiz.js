@@ -1,3 +1,4 @@
+
 const {
   Model
 } = require('sequelize');
@@ -9,8 +10,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      //this.belongsTo(models.User, {as: 'quiz', foreignKey: 'userId'});
-      //this.hasMany(models.Question);
+  
+    
+    this.belongsTo(models.User, {
+    foreignKey: "userId",
+    
+});
+ this.hasMany(models.Question,{
+    foreignKey: "quizId",
+    
+});
+    
+
     }
   };
   Quiz.init({
@@ -23,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING
     },
-    userid: {
+    userId: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
@@ -31,30 +42,18 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id', 
       }
     },
-    datecreation: {
-      type: DataTypes.DATE
-    },
-    active: {
-      type: DataTypes.STRING
-    },
+   
     fontcolor:{
       type:DataTypes.STRING
     },
-    backgroundimage:{
-      type:DataTypes.BLOB
-    },
-    icon:{
-      type:DataTypes.BLOB
-    },
-    public:{
+    backgroundcolor:{
       type:DataTypes.STRING
     },
+    
     scoremin:{
       type:DataTypes.INTEGER
     },
-    timelimit:{
-      type:DataTypes.INTEGER
-    }
+    
 }, {
     sequelize,
     modelName: 'Quiz',

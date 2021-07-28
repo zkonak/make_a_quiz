@@ -3,9 +3,12 @@ const { BadRequestError, NotFoundError } = require("../helpers/errors");
 
 
 const userQuizController = {
-    getAll: async () => {
+    getAll: async (quizid) => {
         const userquizzes = await UserQuiz.findAll({
-            order: [["date", "DESC"]],
+             where: {
+                quizid
+            },
+            
             attributes: { exclude: ["createdAt", "updatedAt"] },
             raw: true,
         });
@@ -17,6 +20,7 @@ const userQuizController = {
                 id
             },
             attributes: { exclude: ["createdAt", "updatedAt"] },
+            
         });
         if (!userquiz) {
             throw new NotFoundError("Ressource introuvable", "Cette quiz n'existe pas");
@@ -25,11 +29,27 @@ const userQuizController = {
         return userquiz;
     },
      getByUser: async (userid) => {
-        const userquiz = await UserQuiz.findOne({
+        const userquiz = await UserQuiz.findAll({
             where: {
                 userid
             },
             attributes: { exclude: ["createdAt", "updatedAt"] },
+            include:["Quiz"]
+        });
+        if (!userquiz) {
+            throw new NotFoundError("Ressource introuvable", "Cette quiz n'existe pas");
+        }
+
+        return userquiz;
+    },
+      getByQuiz: async (quizid) => {
+        const userquiz = await UserQuiz.findAll({
+            where: {
+                quizid
+            },
+           
+           
+            include:["User"]
         });
         if (!userquiz) {
             throw new NotFoundError("Ressource introuvable", "Cette quiz n'existe pas");
@@ -39,8 +59,8 @@ const userQuizController = {
     },
     add: async (data) => {
      
-     
-
+      
+         
         const newUserQuiz= await UserQuiz.create(data);
 
         return newUserQuiz;

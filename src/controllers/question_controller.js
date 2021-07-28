@@ -1,4 +1,4 @@
-const { Question } = require("../models");
+const { Question,Choice } = require("../models");
 const { BadRequestError, NotFoundError } = require("../helpers/errors");
 
 
@@ -25,12 +25,13 @@ const questionController = {
 
     return question;
   },
-  getByQuizId: async (id) => {
+  getByQuizId: async (quizId) => {
     const question = await Question.findAll({
       where: {
-        quizId:id
+        quizId
       },
-      attributes: { exclude: ["createdAt", "updatedAt"] },
+      attributes: ["id", "quizId", "question", "score"],
+      include:[{ model:Choice, attributes:[ `id`, `questionId`, `choice`, `correct`]}]
       
     });
     if (!question) {

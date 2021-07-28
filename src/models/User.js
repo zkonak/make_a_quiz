@@ -9,9 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      //this.hasMany(models.Quiz);
-      //this.belongsToMany(models.UserQuiz, {as: 'userQuiz', through: 'userQuiz', foreignKey: 'userId'});
-    }
+      this.hasMany(models.Quiz,{
+    foreignKey: "userId",
+    });
+    
+   }
   };
   User.init({
     id: {
@@ -26,9 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     lastname: {
       type: DataTypes.STRING
     },
-     username:{
-       type:DataTypes.STRING
-    },
+    
      email:{
        type:DataTypes.STRING
     },
@@ -38,9 +38,7 @@ module.exports = (sequelize, DataTypes) => {
      datecreation:{
        type:DataTypes.DATE
     },
-     confimed:{
-       type:DataTypes.STRING
-    },
+    
   },
    {
     sequelize,

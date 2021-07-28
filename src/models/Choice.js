@@ -2,25 +2,29 @@ const {
     Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Option extends Model {
+    class Choice extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-           // this.belongsTo(models.Quiz);
+          
+            this.belongsTo(models.Question, {
+            foreignKey: "questionId"
+       
+       });
           
         }
     };
-    Option.init({
+    Choice.init({
         id: {
             type: DataTypes.UUID,
             allowNull: false,
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4,
         },
-          questionid: {
+          questionId: {
             type: DataTypes.UUID,
             allowNull: false,
             references: {
@@ -28,21 +32,18 @@ module.exports = (sequelize, DataTypes) => {
               key: 'id', 
              }
         },
-        option: {
+        choice: {
             type: DataTypes.STRING
         },
          correct: {
-            type: DataTypes.STRING
-        },
-         score: {
             type: DataTypes.INTEGER
         },
-
+        
     }, {
         sequelize,
-        modelName: 'Option',
+        modelName: 'Choice',
     });
-    return Option;
+    return Choice;
 };
 //  id: UUID,questionid:UUID,option:STRING,correct:STRING,score:NUMBER
         

@@ -6,7 +6,8 @@ const {
   getAll,
   getOne,
   add,
-  update
+  update,
+  getByUser
 } = require("../controllers/quiz_controller");
 
 const router = express.Router();
@@ -18,6 +19,11 @@ router.get("/", async (request, response) => {
 
 router.get("/:id", async (request, response) => {
   const quiz = await getOne(request.params.id);
+  response.status(OK).json(quiz);
+});
+
+router.get("/byuser/:userId", async (request, response) => {
+  const quiz = await getByUser(request.params.userId);
   response.status(OK).json(quiz);
 });
 

@@ -7,7 +7,21 @@ const quizController = {
       order: [["createdAt", "DESC"]],
       attributes: { exclude: [ "updatedAt"] },
       raw: true,
+      include:"User"
     });
+    return quizzes;
+  },
+  getByUser: async (userId) => {
+    const quizzes = await Quiz.findAll({
+      where:{
+         userId
+      },
+      order: [["createdAt", "DESC"]],
+      attributes: { exclude: [ "updatedAt"] },
+      raw: true,
+      include:"User"
+    });
+    console.log(quizzes);
     return quizzes;
   },
   getOne: async (id) => {
@@ -16,7 +30,7 @@ const quizController = {
         id
       },
       attributes: { exclude: ["createdAt", "updatedAt"] },
-     
+      
       
     });
     if (!quiz) {
@@ -39,7 +53,7 @@ const quizController = {
     // if (formateur) {
     //   throw new BadRequestError("Ressource existante", "Le Formateur existe déjà");
     // }
-
+     console.log(data)
     const newQuiz = await Quiz.create(data);
     //newQuiz.addOption(data.option);
 

@@ -2,7 +2,7 @@ const express = require("express");
 const isAuth =require("../middlewares/isAuth");
 const { OK, CREATED } = require("../helpers/status_codes");
 
-const {getOne,getByQuestion,add,update,deleteOption} = require("../controllers/option_controller");
+const {getOne,getByQuestion,add,update,deleteOption} = require("../controllers/choice_controller");
 
 const router = express.Router();
 

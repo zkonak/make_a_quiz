@@ -16,16 +16,21 @@ module.exports = {
           key: "id",
         },
       },
-      optionid: {
+      questionid: {
         type: Sequelize.UUID,
          references: {
-          model: "options",
+          model: "questions",
           key: "id",
         },
       },
-      response: {
-        type: Sequelize.STRING
+      choiceid: {
+        type: Sequelize.UUID,
+         references: {
+          model: "choices",
+          key: "id",
+        },
       },
+     
       score: {
         type: Sequelize.INTEGER
       },

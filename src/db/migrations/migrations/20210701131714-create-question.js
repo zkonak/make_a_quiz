@@ -16,14 +16,11 @@ module.exports = {
           key: "id",
         },
       },
-      type: {
-        type: Sequelize.INTEGER
-      },
-      order: {
-        type: Sequelize.INTEGER
-      },
-      question: {
+     question: {
         type: Sequelize.STRING
+      },
+        score: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

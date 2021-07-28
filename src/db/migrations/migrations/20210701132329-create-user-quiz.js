@@ -23,21 +23,11 @@ module.exports = {
           key: "id",
         },
       },
-      date: {
-        type: Sequelize.DATE
-      },
-      timespent: {
-        type: Sequelize.INTEGER
-      },
-      termin: {
-        type: Sequelize.STRING
-      },
+     
       totalscore: {
         type: Sequelize.INTEGER
       },
-      timelimit: {
-        type: Sequelize.INTEGER
-      },
+      
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

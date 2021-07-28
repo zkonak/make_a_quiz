@@ -17,6 +17,20 @@ const userResponseController = {
 
         return userResponse;
     },
+     getOne: async (userQuizId,questionId) => {
+        const userResponse = await UserResponse.findOne({
+            where: {
+                userQuizId,
+                questionId
+            },
+            attributes: { exclude: ["createdAt", "updatedAt"] },
+        });
+        if (!userResponse) {
+            throw new NotFoundError("Ressource introuvable", "Ces responses n'existent pas");
+        }
+
+        return userResponse;
+    },
     add: async (data) => {
      
      

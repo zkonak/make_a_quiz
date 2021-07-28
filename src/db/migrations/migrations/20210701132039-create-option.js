@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Options', {
+    await queryInterface.createTable('Choices', {
       id: {
           allowNull: false,
         primaryKey: true,
@@ -16,15 +16,13 @@ module.exports = {
           key: "id",
         },
       },
-      option: {
+      choice: {
         type: Sequelize.STRING
       },
       correct: {
-        type: Sequelize.STRING
-      },
-      score: {
         type: Sequelize.INTEGER
       },
+    
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -36,6 +34,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Options');
+    await queryInterface.dropTable('Choices');
   }
 };

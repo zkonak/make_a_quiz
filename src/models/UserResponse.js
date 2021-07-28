@@ -9,7 +9,19 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-     // this.belongsToMany(models.UserQuiz, {as: 'userResponse', through: 'userResponse', foreignKey: 'userQuizId'})
+  
+    this.belongsTo(models.UserQuiz, {
+       foreignKey: "userQuizId"
+       
+       });
+      //  this.hasOne(models.Question, {
+      //  foreignKey: "questionId"
+       
+      //  });
+      //  this.hasOne(models.Choice, {
+      //  foreignKey: "choiceId"
+       
+      //  });
     }
   };
   UserResponse.init({
@@ -19,26 +31,31 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
     },
-    userquizid: {
+    userQuizId: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'userquiz', 
+        model: 'UserQuiz', 
         key: 'id', 
       }
     },
-     optionid: {
+     questionId: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'option', 
+        model: 'question', 
+        key: 'id', 
+      }
+    },
+     choiceId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'choice', 
         key: 'id', 
       }
     },
     
-    response:{
-      type:DataTypes.STRING
-    },
      score:{
       type:DataTypes.INTEGER
     },
